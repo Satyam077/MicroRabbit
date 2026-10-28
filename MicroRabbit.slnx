@@ -1,5 +1,7 @@
 <Solution>
-  <Folder Name="/Domain/" />
+  <Folder Name="/Domain/">
+    <Project Path="MicroRabbit.Domain.Core/MicroRabbit.Domain.Core.csproj" Id="e037ea9d-853c-4a09-8109-4a982999ff55" />
+  </Folder>
   <Folder Name="/Infra.Bus/" />
   <Folder Name="/Infra.IoC/" />
   <Folder Name="/Microservicces/" />
