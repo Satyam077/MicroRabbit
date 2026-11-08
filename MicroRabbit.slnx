@@ -5,7 +5,9 @@
   <Folder Name="/Infra.Bus/">
     <Project Path="MicroRabbit.Infra.Bus/MicroRabbit.Infra.Bus.csproj" Id="735927f9-a593-433a-9449-c45bd6bd710e" />
   </Folder>
-  <Folder Name="/Infra.IoC/" />
+  <Folder Name="/Infra.IoC/">
+    <Project Path="MicroRabbit.Infra.IoC/MicroRabbit.Infra.IoC.csproj" Id="4e9951d9-fb0b-470c-869c-df3e9d96154c" />
+  </Folder>
   <Folder Name="/Microservicces/" />
   <Folder Name="/Presentation/" />
 </Solution>

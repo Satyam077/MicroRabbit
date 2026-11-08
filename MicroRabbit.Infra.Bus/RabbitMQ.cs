@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace MicroRabbit.Infra.Bus
 {
-    public sealed class RabbitMQ : IEventBus
+    public sealed class RabbitMQBus : IEventBus
     {
         private readonly IMediator _mediator;
         private readonly Dictionary<string, List<Type>> _handlers;
         private readonly List<Type> _eventTypes;
 
-        public RabbitMQ(IMediator mediator)
+        public RabbitMQBus(IMediator mediator)
         {
 
             _mediator = mediator;
@@ -86,22 +86,6 @@ namespace MicroRabbit.Infra.Bus
             try
             {
                 await ProcessEvent(eventName, message).ConfigureAwait(false);
-                if (_handlers.ContainsKey(eventName))
-                {
-                    using (var scope = new Microsoft.Extensions.DependencyInjection.ServiceCollection().BuildServiceProvider())
-                    {
-                        var subscriptions = _handlers[eventName];
-                        foreach (var subscription in subscriptions)
-                        {
-                            var handler = scope.GetService(subscription);
-                            if (handler == null) continue;
-                            var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
-                            var @eventInstance = System.Text.Json.JsonSerializer.Deserialize(message, eventType);
-                            var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
-                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { @eventInstance });
-                        }
-                    }
-                }
             }
             catch (Exception ex)
             {
